@@ -17,6 +17,7 @@ public class User {
     private String email;
     private String fullName;
     private String password;
+    private Set<Role> roles;
 
     public User(String email, String fullName, String password){
         this.email = email;
@@ -24,6 +25,8 @@ public class User {
         this.fullName = fullName;
         this.roles = new HashSet<>();
     }
+
+    public User(){}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,7 +66,7 @@ public class User {
     }
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name="users_roles")
+    @JoinTable(name = "users_roles")
     public Set<Role> getRoles() {
         return roles;
     }
@@ -72,6 +75,10 @@ public class User {
         this.roles = roles;
     }
 
-    private Set<Role> roles;
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
+
+
 }
 
